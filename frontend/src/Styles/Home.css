@@ -1,0 +1,125 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f0f0f0;
+}
+
+#lis {
+  width: 260px;
+  padding: 25px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+#lis h1 {
+  font-size: 1.6em;
+  color: #2c3e50;
+  margin: 0 0 15px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-group label {
+  font-size: 0.95em;
+  font-weight: 500;
+  color: #34495e;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  background-color: #ffffff;
+  font-size: 0.95em;
+  color: #2c3e50;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2334495e'%3E%3Cpath fill-rule='evenodd' d='M8 11.293l-4.146-4.147a.5.5 0 0 1 .708-.708L8 9.879l3.438-3.438a.5.5 0 0 1 .707.707L8 11.293z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+.filter-group select:focus {
+  border-color: #3498db;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.apply-button {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 15px;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.apply-button:hover {
+  background-color: #2980b9;
+}
+
+.apply-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.5);
+}
+
+#app-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  overflow: hidden;
+}
+
+#app-container > h1 {
+  font-size: 1.8em;
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 25px;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+#app-container > .the-actual-map {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}

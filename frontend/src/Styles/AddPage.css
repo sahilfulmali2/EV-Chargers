@@ -1,0 +1,111 @@
+
+.add-charger {
+  width: 100%;
+  max-width: 550px; /* Controls the maximum width of the form */
+  margin: 30px auto; /* Centers the form on the page */
+  padding: 30px 35px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.add-charger h2 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.add-charger form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adds space between form elements */
+}
+
+.add-charger input[type="text"],
+.add-charger input[type="number"] {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #333;
+  box-sizing: border-box; /* Important for width and padding calculation */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.add-charger input[type="text"]::placeholder,
+.add-charger input[type="number"]::placeholder {
+  color: #999;
+}
+
+.add-charger input[type="text"]:focus,
+.add-charger input[type="number"]:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Styling for the buttons container if you want them on the same line */
+.add-charger form div.button-group {
+  display: flex;
+  gap: 15px; /* Space between buttons */
+  margin-top: 15px; /* Space above the button group */
+}
+
+.add-charger button {
+  padding: 14px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+  flex-grow: 1; /* If using button-group, makes buttons share space */
+}
+
+/* Specific styling for the submit button */
+.add-charger button[type="submit"] {
+  background-color: #27ae60; /* Green for primary action */
+  color: white;
+}
+
+.add-charger button[type="submit"]:hover {
+  background-color: #229954;
+  transform: translateY(-1px);
+}
+
+/* Styling for the router-link wrapper and the cancel button */
+.add-charger .router-link-cancel { /* Add this class to your router-link if needed */
+  text-decoration: none;
+  flex-grow: 1; /* If using button-group */
+}
+
+.add-charger .router-link-cancel button[type="button"],
+.add-charger form > a > button[type="button"] { /* Targets the cancel button directly within the form > a */
+  background-color: #e0e0e0; /* Light gray for cancel/secondary action */
+  color: #333;
+  width: 100%; /* Makes the button inside router-link fill its container */
+}
+
+.add-charger .router-link-cancel button[type="button"]:hover,
+.add-charger form > a > button[type="button"]:hover {
+  background-color: #c7c7c7;
+  transform: translateY(-1px);
+}
+
+/* If you want buttons stacked, remove .button-group and the flex-grow from button */
+/* For example, if they are not in a button-group div: */
+.add-charger form > button[type="submit"] {
+  margin-bottom: 10px; /* Space below the Add button if stacked */
+}
+.add-charger form > a { /* The router-link itself */
+  display: block; /* Make the link take full width if buttons are stacked */
+  text-decoration: none;
+}
+.add-charger form > a > button[type="button"] { /* The cancel button */
+  width: 100%; /* Ensure cancel button is full width */
+}

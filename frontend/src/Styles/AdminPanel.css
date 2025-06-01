@@ -1,0 +1,118 @@
+
+.admin-panel {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 30px 40px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.admin-panel h2 {
+  color: #007bff;
+  margin: 0 0 30px;
+  font-size: 2.2rem;
+  text-align: center;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 20px;
+  font-weight: 600;
+}
+
+.admin-panel h3 {
+  color: #343a40;
+  margin: 35px 0 20px;
+  font-size: 1.6rem;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 12px;
+  font-weight: 500;
+}
+
+.admin-panel a {
+  text-decoration: none;
+}
+
+.admin-panel a button,
+.admin-panel button {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.admin-panel a button {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 35px;
+}
+
+.admin-panel a button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-panel li {
+  background-color: #f8f9fa;
+  padding: 18px 25px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease;
+}
+
+.admin-panel li:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+  border-color: #3b628a;
+}
+
+.admin-panel li div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.admin-panel li span {
+  color: #000000;
+  font-size: 1.05rem;
+  flex-grow: 1;
+  margin-right: 20px;
+  line-height: 1.5;
+}
+
+.admin-panel li button {
+  background-color: #dc3545;
+  color: white;
+  padding: 9px 18px;
+  font-size: 1rem;
+}
+
+.admin-panel li button:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+.admin-panel > div > p {
+  color: #000000;
+  text-align: center;
+  font-size: 1.15rem;
+  padding: 35px 20px;
+  background-color: #f8f9fa;
+  border: 1px dashed #0570da;
+  border-radius: 8px;
+  margin-top: 25px;
+}
