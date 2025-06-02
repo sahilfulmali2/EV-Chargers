@@ -1,95 +1,118 @@
-#EV Charging Station Management System
-This is a full-stack web application designed to manage electric vehicle (EV) charging stations. It includes user authentication and an admin panel for managing charging station data.
+# ECCharger – EV Charging Station Management System
 
-Features
-User Authentication: Secure user registration and login.
-Admin Panel:
-View Stations: See all listed charging stations.
-Add Stations: Create new charging station entries with details.
-Update Stations: Modify existing charging station information.
-Delete Stations: Remove charging station entries.
-Public View: Users can view a list of available charging stations.
-Technologies Used
-Frontend (Vue.js)
-Vue.js: Frontend framework.
-Vue Router: For navigation within the app.
-Axios: For API calls.
-Backend (Node.js/Express)
-Node.js & Express.js: Server-side runtime and web framework.
-MongoDB & Mongoose: Database and ODM.
-Bcrypt.js & jsonwebtoken: For authentication and security.
-Deployment
-Vercel: Hosts the frontend.
-Render: Hosts the backend API.
-Getting Started
+**ECCharger** is a full-stack web application designed to manage electric vehicle (EV) charging stations. It includes secure user authentication and an admin panel for managing charging station data.
+
+---
+
+## 🚀 Features
+
+- **User Authentication**
+  - Secure user registration and login using JWT and bcrypt.
+
+- **Admin Panel**
+  - **View Stations**: See all listed charging stations.
+  - **Add Stations**: Create new charging station entries with details.
+  - **Update Stations**: Modify existing charging station information.
+  - **Delete Stations**: Remove charging station entries.
+
+- **Public View**
+  - Users can view a list of available charging stations without logging in.
+
+---
+
+## 🛠️ Technologies Used
+
+### **Frontend (Vue.js)**
+- Vue.js – Frontend framework
+- Vue Router – For routing/navigation
+- Axios – For making HTTP requests
+
+### **Backend (Node.js + Express)**
+- Node.js & Express.js – Server-side runtime and framework
+- MongoDB & Mongoose – Database and ODM
+- bcrypt.js – Password hashing
+- jsonwebtoken – Authentication via JWT
+
+---
+
+## 🌐 Deployment
+
+- **Frontend**: Hosted on [Vercel](https://vercel.com/)
+- **Backend API**: Hosted on [Render](https://render.com/)
+
+---
+
+## 🧩 Getting Started
+
 Follow these steps to set up the project locally.
 
-Prerequisites
-Make sure you have these installed:
+### ✅ Prerequisites
 
-Node.js (LTS recommended)
-npm (comes with Node.js) or Yarn
-Git
-You'll also need a MongoDB Atlas account (or a local MongoDB instance).
+Make sure the following are installed:
 
-Local Setup
-Clone the Repository:
+- [Node.js (LTS)](https://nodejs.org/)
+- npm (comes with Node.js) or [Yarn](https://yarnpkg.com/)
+- [Git](https://git-scm.com/)
+- A MongoDB Atlas account or a local MongoDB instance
 
-Bash
+---
 
-git clone <your-repository-url>
-cd <your-project-directory>
-Backend Setup:
+## ⚙️ Local Setup
 
-Navigate into the backend folder:
-Bash
+### 1. Clone the Repository
+
+git clone https://github.com/sahilfulmali2/EV-Chargers
+cd EV-Chargers
+### 2. Backend Setup
 
 cd backend
-Install backend dependencies:
-Bash
-
 npm install
-# or
-yarn install
-Create a .env file in the backend directory and add your environment variables:
-Code snippet
 
+Create a .env file inside the backend folder and add:
 MONGO_URI=your_mongodb_atlas_connection_string
 JWT_SECRET=a_super_secret_key_for_jwt
 ADMIN_EMAIL=admin@example.com
 PORT=5000
-Replace placeholder values with your actual MongoDB connection string, a strong random secret, and your designated admin email.
+
 Start the backend server:
-Bash
 
 npm run dev
-# or
-yarn dev
-The backend API will run on http://localhost:5000.
-Frontend Setup:
+API will run at: http://localhost:5000
 
-Open a new terminal and navigate into the frontend folder from your project root:
-Bash
+###3. Frontend Setup
+Open a new terminal:
 
 cd frontend
-Install frontend dependencies:
-Bash
-
 npm install
 # or
 yarn install
-Create a .env file in the frontend directory and set your backend API URL:
-Code snippet
+Create a .env file inside the frontend folder and add:
 
 VITE_APP_BACKEND_API_URL=http://localhost:5000
-(Note: If you're using Vite, VITE_APP_ prefix is common. Adjust if your project uses a different bundler like Vue CLI with VUE_APP_)
 Start the frontend development server:
-Bash
 
 npm run dev
-# or
-yarn dev
-The frontend application will run on http://localhost:5173 (or similar).
-Admin Credentials
-To use the admin panel, you'll need to register an account with the ADMIN_EMAIL you set in your backend's .env file via the registration endpoint. Once registered, log in to access admin features.
+
+App will run at: http://localhost:5173
+
+🔐 Admin Credentials
+To access the Admin Panel:
+
+Register a new account using the email you defined in ADMIN_EMAIL inside your backend .env file.
+
+Log in with that account to access admin features like adding, editing, or deleting stations.
+
+
+## 📍 User Map View
+
+To view EV charging stations on the map, follow these steps:
+
+1. **Register an Account**  
+   Users must first sign up to the platform by providing necessary details in the registration form.
+
+2. **Login**  
+   After registration, users can log in using their credentials to access their dashboard.
+
+3. **View EV Stations on the Map**  
+   Once logged in, users will have access to a map displaying the locations of available EV charging stations.
 
