@@ -1,9 +1,8 @@
-
 .admin-panel {
   width: 100vw;
   min-height: 100vh;
   padding: 30px 40px;
-  background-color: #ffffff;
+  background: #fff;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -11,20 +10,20 @@
 
 .admin-panel h2 {
   color: #007bff;
-  margin: 0 0 30px;
-  font-size: 2.2rem;
+  margin-bottom: 30px;
+  font-size: 2rem;
   text-align: center;
   border-bottom: 2px solid #007bff;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   font-weight: 600;
 }
 
 .admin-panel h3 {
   color: #343a40;
-  margin: 35px 0 20px;
-  font-size: 1.6rem;
+  margin: 30px 0 15px;
+  font-size: 1.4rem;
   border-bottom: 1px solid #dee2e6;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
   font-weight: 500;
 }
 
@@ -34,26 +33,28 @@
 
 .admin-panel a button,
 .admin-panel button {
-  padding: 12px 22px;
+  padding: 8px 14px;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
+  border-radius: 5px;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out, transform 0.1s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .admin-panel a button {
-  background-color: #007bff;
-  color: white;
-  margin-bottom: 35px;
+  background: #007bff;
+  color: #fff;
+  
+  margin-bottom: 25px;
 }
 
 .admin-panel a button:hover {
-  background-color: #0056b3;
+  background: #0056b3;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .admin-panel ul {
@@ -63,19 +64,19 @@
 }
 
 .admin-panel li {
-  background-color: #f8f9fa;
-  padding: 18px 25px;
+  background: #f8f9fa;
+  padding: 14px 20px;
   margin-bottom: 10px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid #e9ecef;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease;
+  transition: box-shadow 0.2s, border-color 0.2s;
 }
 
 .admin-panel li:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
   border-color: #3b628a;
 }
 
@@ -87,32 +88,32 @@
 }
 
 .admin-panel li span {
-  color: #000000;
-  font-size: 1.05rem;
+  color: #000;
+  font-size: 1rem;
   flex-grow: 1;
-  margin-right: 20px;
-  line-height: 1.5;
+  margin-right: 15px;
 }
 
 .admin-panel li button {
-  background-color: #dc3545;
-  color: white;
-  padding: 9px 18px;
-  font-size: 1rem;
+  background: #dc3545;
+  color: #fff;
+  width: 90px;
+  margin: 10px;
+  font-size: 0.9rem;
 }
 
 .admin-panel li button:hover {
-  background-color: #c82333;
+  background: #c82333;
   transform: translateY(-1px);
 }
 
 .admin-panel > div > p {
-  color: #000000;
+  color: #000;
   text-align: center;
-  font-size: 1.15rem;
-  padding: 35px 20px;
-  background-color: #f8f9fa;
+  font-size: 1.05rem;
+  padding: 30px 20px;
+  background: #f8f9fa;
   border: 1px dashed #0570da;
-  border-radius: 8px;
+  border-radius: 6px;
   margin-top: 25px;
 }

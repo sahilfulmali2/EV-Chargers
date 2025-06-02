@@ -60,13 +60,16 @@
 <script>
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router'; 
 
 export default {
   name: 'UpdatePage',
-  props: {
-    stationId: String, // Assuming you pass the station ID as a prop
-  },
-  setup(props) {
+  
+  setup() { 
+    const route = useRoute(); 
+    const router = useRouter();
+    const chargerId = route.params.id; 
+
     const chargingStation = ref({
       name: '',
       location: '',
@@ -80,18 +83,21 @@ export default {
     // Fetch the charging station data on component mount
     onMounted(async () => {
       try {
-        const response = await axios.get(`https://ev-chargers-befi.onrender.com/api/chargers/${props.stationId}`);
+        const response = await axios.get(`https://ev-chargers-befi.onrender.com/api/chargers/${chargerId}`); 
         chargingStation.value = response.data;
       } catch (error) {
         console.error('Error fetching charging station data:', error);
+        alert('Failed to load charging station data. Please try again.');
       }
     });
 
-    // Function to handle the update form submission
+    // Function to handle the update form 
     const updateChargingStation = async () => {
       try {
-        await axios.put(`https://ev-chargers-befi.onrender.com/api/chargers/${props.stationId}`, chargingStation.value);
+        await axios.put(`https://ev-chargers-befi.onrender.com/api/chargers/${chargerId}`, chargingStation.value);
         alert('Charging station updated successfully!');
+      
+        router.push('/adminpanel');
       } catch (error) {
         console.error('Error updating charging station:', error);
         alert('Failed to update the charging station.');

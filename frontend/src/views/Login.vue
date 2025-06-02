@@ -36,7 +36,8 @@ const login = async () => {
       email: email.value,
       password: password.value,
     });
-    localStorage.setItem("token", res.data.token);
+    
+    sessionStorage.setItem("token", res.data.token);
 
     const isAdmin = res.data.isAdmin;
     console.log(isAdmin);

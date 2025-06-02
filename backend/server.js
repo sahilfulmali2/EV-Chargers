@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const verifyAdmin = require("./middleware/isAdminMiddleware");
 
 const app = express();
 require("dotenv").config();
@@ -116,7 +117,7 @@ app.get('/', (req, res) => {
   res.send('Backend is running!');
 });
 
-app.get("/api/chargers/:id", async (req, res) => {
+app.get("/api/chargers/:id",verifyAdmin, async (req, res) => {
   try {
     const chargers = await ChargingStation.findById(req.params.id);
     res.json(chargers);
@@ -127,7 +128,7 @@ app.get("/api/chargers/:id", async (req, res) => {
 });
 
 // Add Charging Station Route
-app.post("/api/chargers", async (req, res) => {
+app.post("/api/chargers",verifyAdmin, async (req, res) => {
   const lat = parseFloat(req.body.latitude);
   const lon = parseFloat(req.body.longitude);
   const { name, location, status, power, connector } = req.body;
@@ -156,7 +157,7 @@ app.post("/api/chargers", async (req, res) => {
 
 
 //Update Charger Station Info
-app.put("/api/chargers/:id", async (req, res) => {
+app.put("/api/chargers/:id",verifyAdmin, async (req, res) => {
   const { name, location, latitude, longitude, status, power, connector } = req.body;
 
   if (!name || !location || isNaN(parseFloat(latitude)) || isNaN(parseFloat(longitude)) || !status) {
@@ -184,7 +185,7 @@ app.put("/api/chargers/:id", async (req, res) => {
 
 
 // Delete Charger Route
-app.delete("/api/chargers/:id", async (req, res) => {
+app.delete("/api/chargers/:id",verifyAdmin, async (req, res) => {
   try {
     const result = await ChargingStation.findByIdAndDelete(req.params.id);
     if (!result) {

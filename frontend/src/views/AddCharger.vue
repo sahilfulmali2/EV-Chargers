@@ -35,7 +35,9 @@
         <option value="CHAdeMO">CHAdeMO</option>
         <option value="GB/T">GB/T</option>
       </select>
-      <button type="submit">Add</button>
+      <div>
+        <button type="submit">Add</button>
+      </div>
       <router-link to="/adminpanel"
         ><button type="button">Cancel</button></router-link
       >

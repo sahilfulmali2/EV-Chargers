@@ -54,7 +54,7 @@ const infoWindowOpened = ref(false);
 
 const fetchStations = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/api/chargers");
+    const res = await axios.get("https://ev-chargers-befi.onrender.com/api/chargers");
     if (!res) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }

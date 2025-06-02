@@ -29,7 +29,7 @@ h3 {
     flex-direction: column;
     align-items: center;
     margin-bottom: 25px;
-    gap: 15px; /* Space between paragraph and button */
+    gap: 15px; 
 }
 
 .actions p {
@@ -55,11 +55,11 @@ button {
 }
 
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049; 
     transform: translateY(-2px);
 }
 
 button:active {
     transform: translateY(0);
-    background-color: #3e8e41; /* Even darker green on active */
+    background-color: #3e8e41; 
 }

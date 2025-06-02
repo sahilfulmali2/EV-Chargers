@@ -1,8 +1,8 @@
 
 .add-charger {
   width: 100%;
-  max-width: 550px; /* Controls the maximum width of the form */
-  margin: 30px auto; /* Centers the form on the page */
+  max-width: 550px; 
+  margin: 30px auto; 
   padding: 30px 35px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -22,7 +22,7 @@
 .add-charger form {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Adds space between form elements */
+  gap: 20px; 
 }
 
 .add-charger input[type="text"],
@@ -33,7 +33,7 @@
   border-radius: 6px;
   font-size: 1rem;
   color: #333;
-  box-sizing: border-box; /* Important for width and padding calculation */
+  box-sizing: border-box; 
   transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -49,11 +49,10 @@
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
-/* Styling for the buttons container if you want them on the same line */
 .add-charger form div.button-group {
   display: flex;
-  gap: 15px; /* Space between buttons */
-  margin-top: 15px; /* Space above the button group */
+  gap: 15px; 
+  margin-top: 15px; 
 }
 
 .add-charger button {
@@ -64,12 +63,11 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, transform 0.1s ease;
-  flex-grow: 1; /* If using button-group, makes buttons share space */
+  flex-grow: 1; 
 }
 
-/* Specific styling for the submit button */
 .add-charger button[type="submit"] {
-  background-color: #27ae60; /* Green for primary action */
+  background-color: #27ae60; 
   color: white;
 }
 
@@ -78,17 +76,17 @@
   transform: translateY(-1px);
 }
 
-/* Styling for the router-link wrapper and the cancel button */
-.add-charger .router-link-cancel { /* Add this class to your router-link if needed */
+
+.add-charger .router-link-cancel {
   text-decoration: none;
-  flex-grow: 1; /* If using button-group */
+  flex-grow: 1; 
 }
 
 .add-charger .router-link-cancel button[type="button"],
-.add-charger form > a > button[type="button"] { /* Targets the cancel button directly within the form > a */
-  background-color: #e0e0e0; /* Light gray for cancel/secondary action */
+.add-charger form > a > button[type="button"] { 
+  background-color: #e0e0e0;
   color: #333;
-  width: 100%; /* Makes the button inside router-link fill its container */
+  width: 100%; 
 }
 
 .add-charger .router-link-cancel button[type="button"]:hover,
@@ -97,15 +95,13 @@
   transform: translateY(-1px);
 }
 
-/* If you want buttons stacked, remove .button-group and the flex-grow from button */
-/* For example, if they are not in a button-group div: */
 .add-charger form > button[type="submit"] {
-  margin-bottom: 10px; /* Space below the Add button if stacked */
+  margin-bottom: 10px; 
 }
-.add-charger form > a { /* The router-link itself */
-  display: block; /* Make the link take full width if buttons are stacked */
+.add-charger form > a { 
+  display: block; 
   text-decoration: none;
 }
-.add-charger form > a > button[type="button"] { /* The cancel button */
-  width: 100%; /* Ensure cancel button is full width */
+.add-charger form > a > button[type="button"] { 
+  width: 100%; 
 }
