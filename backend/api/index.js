@@ -28,8 +28,8 @@ app.use(
 app.use(express.json());
 
 //User Model
-const Register = require("./models/register");
-const ChargingStation = require("./models/chargingstation");
+const Register = require("../models/register");
+const ChargingStation = require("../models/chargingstation");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
