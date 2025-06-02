@@ -99,6 +99,13 @@ app.get("/api/chargers", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch chargers" });
   }
 });
+app.get("/", async (req, res) => {
+  try {
+    res.json({ message: "Backend working fine on Vercel!" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed" });
+  }
+});
 
 // Add Charging Station Route
 app.post("/api/chargers", async (req, res) => {
