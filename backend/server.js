@@ -3,23 +3,33 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const serverless = require("serverless-http");
 
 const app = express();
 
+// Load environment variables. For Vercel, these are injected automatically.
+// This line is primarily for local development.
 require("dotenv").config();
 
+// Get MongoDB URI from environment variables.
+// It's crucial that MONGO_URI is correctly set in Vercel's project settings.
 const MONGO_URI = process.env.MONGO_URI;
 
+// Log an error if MONGO_URI is not found. This will appear in Vercel logs.
 if (!MONGO_URI) {
   console.error("ERROR: MONGO_URI environment variable is not defined!");
+  // In a production scenario, you might want to exit the process or provide a fallback.
+  // For Vercel, this will simply be logged, and the connection attempt will likely fail.
 }
 
 // Define an async function to connect to MongoDB
 async function connectDB() {
   try {
-    await mongoose.connect(MONGO_URI);
-    console.log("MongoDB Connected Successfully!");
+    // Only attempt to connect if not already connected
+    // mongoose.connection.readyState: 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
+    if (mongoose.connection.readyState !== 1) {
+      await mongoose.connect(MONGO_URI);
+      console.log("MongoDB Connected Successfully!");
+    }
   } catch (err) {
     console.error("MongoDB connection error:", err);
     console.error("Ensure your MONGO_URI is correct and IP access is whitelisted in MongoDB Atlas.");
@@ -36,6 +46,7 @@ app.use(cors({
 app.use(express.json());
 
 // Load User Model
+// Ensure the paths to your models are correct relative to server.js
 const Register = require("./models/register");
 const ChargingStation = require("./models/chargingstation");
 
@@ -53,10 +64,6 @@ app.post("/api/register", async (req, res) => {
   }
 
   try {
-    // Ensure DB is connected before proceeding
-    if (mongoose.connection.readyState !== 1) {
-      await connectDB(); // Attempt to reconnect if not connected
-    }
     const existing = await Register.findOne({ email });
     if (existing) {
       return res.status(400).json({ message: "Email already taken" });
@@ -84,10 +91,6 @@ app.post("/api/login", async (req, res) => {
   console.log("Received login request with:", email, password);
 
   try {
-    // Ensure DB is connected before proceeding
-    if (mongoose.connection.readyState !== 1) {
-      await connectDB(); // Attempt to reconnect if not connected
-    }
     const user = await Register.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User does not exist" });
@@ -117,10 +120,6 @@ app.post("/api/login", async (req, res) => {
 // Fetching Chargers
 app.get("/api/chargers", async (req, res) => {
   try {
-    // Ensure DB is connected before proceeding
-    if (mongoose.connection.readyState !== 1) { // 1 means connected
-      await connectDB(); // Attempt to reconnect if not connected
-    }
     const chargers = await ChargingStation.find();
     res.json(chargers);
   } catch (err) {
@@ -132,10 +131,6 @@ app.get("/api/chargers", async (req, res) => {
 // Root endpoint for health check
 app.get("/", async (req, res) => {
   try {
-    // Ensure DB is connected before responding
-    if (mongoose.connection.readyState !== 1) {
-      await connectDB(); // Attempt to reconnect if not connected
-    }
     if (mongoose.connection.readyState === 1) { // 1 means connected
       res.json({ message: "Backend working fine on Vercel and connected to MongoDB!" });
     } else {
@@ -158,10 +153,6 @@ app.post("/api/chargers", async (req, res) => {
   }
 
   try {
-    // Ensure DB is connected before proceeding
-    if (mongoose.connection.readyState !== 1) {
-      await connectDB(); // Attempt to reconnect if not connected
-    }
     const newCharger = new ChargingStation({
       name,
       location,
@@ -182,10 +173,6 @@ app.post("/api/chargers", async (req, res) => {
 // Delete Charger Route
 app.delete("/api/chargers/:id", async (req, res) => {
   try {
-    // Ensure DB is connected before proceeding
-    if (mongoose.connection.readyState !== 1) {
-      await connectDB(); // Attempt to reconnect if not connected
-    }
     const result = await ChargingStation.findByIdAndDelete(req.params.id);
     if (!result) {
       return res.status(404).json({ message: "Charger not found" });
@@ -197,14 +184,6 @@ app.delete("/api/chargers/:id", async (req, res) => {
   }
 });
 
-module.exports = async (req, res) => {
-  if (mongoose.connection.readyState !== 1) {
-    try {
-      await connectDB();
-    } catch (error) {
-      console.error("Failed to connect to MongoDB during function invocation:", error);
-      return res.status(500).json({ error: "Server initialization failed: Could not connect to database." });
-    }
-  }
-  return serverless(app)(req, res);
-};
+// Export the app and connectDB function
+// These will be imported by api/index.js for Vercel deployment
+module.exports = { app, connectDB };
