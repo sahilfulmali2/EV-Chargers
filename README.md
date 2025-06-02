@@ -83,13 +83,12 @@ Start the backend server:
 npm run dev
 API will run at: http://localhost:5000
 
-###3. Frontend Setup
+### 3. Frontend Setup
 Open a new terminal:
 
 cd frontend
 npm install
-# or
-yarn install
+
 Create a .env file inside the frontend folder and add:
 
 VITE_APP_BACKEND_API_URL=http://localhost:5000
