@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const serverless = require('serverless-http')
 
 const app = express();
 require("dotenv").config();
@@ -156,4 +157,7 @@ app.delete("/api/chargers/:id", async (req, res) => {
   }
 });
 
-module.exports = { app, connectDB };
+// // module.exports = app;
+// module.exports.handler =serverless(app);
+
+module.exports = serverless(app);
