@@ -28,6 +28,9 @@ const router = useRouter();
 
 const login = async () => {
   try {
+    console.log("Sending login:", email.value, password.value);
+
+
     const res = await axios.post("http://localhost:5000/api/login", {
       email: email.value,
       password: password.value,
