@@ -5,6 +5,7 @@ import AdminPanel from "../views/AdminPanel.vue";
 import AddCharger from "../views/AddCharger.vue";
 import Home from "../views/Home.vue";
 import MainPage from "../views/MainPage.vue"
+import UpdatePage from "../views/UpdatePage.vue";
 
 const routes = [
   {
@@ -34,6 +35,10 @@ const routes = [
   { path: "/home",
     name:"Home",
     component: Home
+  },
+  { path: "/updatepage/:id",
+    name:"UpdatePage",
+    component: UpdatePage
   },
 ];
 

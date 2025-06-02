@@ -57,7 +57,7 @@ export default {
       }
     },
     updateChargingStation(id) {
-      this.$router.push(`/adminpanel/update/${id}`);
+      this.$router.push(`/updatepage/${id}`);
     },
   },
 };

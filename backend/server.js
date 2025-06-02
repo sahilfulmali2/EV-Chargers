@@ -116,6 +116,16 @@ app.get('/', (req, res) => {
   res.send('Backend is running!');
 });
 
+app.get("/api/chargers/:id", async (req, res) => {
+  try {
+    const chargers = await ChargingStation.findById(req.params.id);
+    res.json(chargers);
+  } catch (err) {
+    console.error("Failed to fetch chargers:", err);
+    res.status(500).json({ error: "Failed to fetch chargers" });
+  }
+});
+
 // Add Charging Station Route
 app.post("/api/chargers", async (req, res) => {
   const lat = parseFloat(req.body.latitude);
@@ -143,6 +153,35 @@ app.post("/api/chargers", async (req, res) => {
     res.status(500).json({ error: "Failed to add charger" });
   }
 });
+
+
+//Update Charger Station Info
+app.put("/api/chargers/:id", async (req, res) => {
+  const { name, location, latitude, longitude, status, power, connector } = req.body;
+
+  if (!name || !location || isNaN(parseFloat(latitude)) || isNaN(parseFloat(longitude)) || !status) {
+    return res.status(400).json({ error: "All fields are required and latitude/longitude must be valid" });
+  }
+
+  try {
+    
+    const updatedCharger = await ChargingStation.findByIdAndUpdate(
+      req.params.id,
+      { name, location, latitude: parseFloat(latitude), longitude: parseFloat(longitude), status, power, connector },
+      { new: true } 
+    );
+
+    if (!updatedCharger) {
+      return res.status(404).json({ message: "Charger not found" });
+    }
+
+    res.status(200).json(updatedCharger);  
+  } catch (err) {
+    console.error("Failed to update charger:", err);
+    res.status(500).json({ error: "Failed to update charger" });
+  }
+});
+
 
 // Delete Charger Route
 app.delete("/api/chargers/:id", async (req, res) => {
