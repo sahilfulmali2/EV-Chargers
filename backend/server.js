@@ -5,55 +5,39 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const app = express();
-
-// Load environment variables. For Vercel, these are injected automatically.
-// This line is primarily for local development.
 require("dotenv").config();
-
-// Get MongoDB URI from environment variables.
-// It's crucial that MONGO_URI is correctly set in Vercel's project settings.
 const MONGO_URI = process.env.MONGO_URI;
+const PORT = 6000;
 
-// Log an error if MONGO_URI is not found. This will appear in Vercel logs.
-if (!MONGO_URI) {
-  console.error("ERROR: MONGO_URI environment variable is not defined!");
-  // In a production scenario, you might want to exit the process or provide a fallback.
-  // For Vercel, this will simply be logged, and the connection attempt will likely fail.
-}
-
-// Define an async function to connect to MongoDB
 async function connectDB() {
   try {
-    // Only attempt to connect if not already connected
-    // mongoose.connection.readyState: 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
-    if (mongoose.connection.readyState !== 1) {
-      await mongoose.connect(MONGO_URI);
-      console.log("MongoDB Connected Successfully!");
-    }
+    await mongoose.connect(MONGO_URI);
+    console.log("MongoDB Connected Successfully!");
   } catch (err) {
     console.error("MongoDB connection error:", err);
-    console.error("Ensure your MONGO_URI is correct and IP access is whitelisted in MongoDB Atlas.");
-    // Re-throw the error to ensure the cold start fails if connection fails
     throw err;
   }
 }
 
+connectDB();
 // Middleware
-app.use(cors({
-  origin: ['http://localhost:5000', 'https://ev-chargers-frontend.vercel.app/'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5500",
+      "https://ev-chargers-frontend.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
-// Load User Model
-// Ensure the paths to your models are correct relative to server.js
+//User Model
 const Register = require("./models/register");
 const ChargingStation = require("./models/chargingstation");
 
-// Get JWT_SECRET and ADMIN_EMAIL from environment variables.
-// Provide a fallback for local development if not set in .env
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_fallback";
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@example.com";
+const JWT_SECRET = process.env.JWT_SECRET;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
 // Register Route
 app.post("/api/register", async (req, res) => {
@@ -131,10 +115,18 @@ app.get("/api/chargers", async (req, res) => {
 // Root endpoint for health check
 app.get("/", async (req, res) => {
   try {
-    if (mongoose.connection.readyState === 1) { // 1 means connected
-      res.json({ message: "Backend working fine on Vercel and connected to MongoDB!" });
+    if (mongoose.connection.readyState === 1) {
+      // 1 means connected
+      res.json({
+        message: "Backend working fine on Vercel and connected to MongoDB!",
+      });
     } else {
-      res.status(503).json({ error: "Backend is running, but not connected to MongoDB yet. Check Vercel logs for connection errors." });
+      res
+        .status(503)
+        .json({
+          error:
+            "Backend is running, but not connected to MongoDB yet. Check Vercel logs for connection errors.",
+        });
     }
   } catch (err) {
     console.error("Error on root endpoint:", err);
@@ -184,6 +176,6 @@ app.delete("/api/chargers/:id", async (req, res) => {
   }
 });
 
-// Export the app and connectDB function
-// These will be imported by api/index.js for Vercel deployment
-module.exports = { app, connectDB };
+app.listen(PORT, () => {
+      console.log(`Local Express server running on http://localhost:${PORT}`);
+    });
