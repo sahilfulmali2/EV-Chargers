@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const app = express();
 require("dotenv").config();
 const MONGO_URI = process.env.MONGO_URI;
-const PORT = 6000;
+const PORT = process.env.PORT || 5000;
 
 async function connectDB() {
   try {
@@ -112,26 +112,8 @@ app.get("/api/chargers", async (req, res) => {
   }
 });
 
-// Root endpoint for health check
-app.get("/", async (req, res) => {
-  try {
-    if (mongoose.connection.readyState === 1) {
-      // 1 means connected
-      res.json({
-        message: "Backend working fine on Vercel and connected to MongoDB!",
-      });
-    } else {
-      res
-        .status(503)
-        .json({
-          error:
-            "Backend is running, but not connected to MongoDB yet. Check Vercel logs for connection errors.",
-        });
-    }
-  } catch (err) {
-    console.error("Error on root endpoint:", err);
-    res.status(500).json({ error: "Failed to respond to root endpoint" });
-  }
+app.get('/', (req, res) => {
+  res.send('Backend is running!');
 });
 
 // Add Charging Station Route
