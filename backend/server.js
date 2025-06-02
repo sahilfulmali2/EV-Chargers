@@ -19,11 +19,8 @@ app.use(express.json());
 
 // MongoDB connection
 const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/EVcharger";
-mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+
+await mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("MongoDB connection error:", err));
 
