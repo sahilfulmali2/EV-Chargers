@@ -19,10 +19,15 @@ app.use(express.json());
 
 // MongoDB connection
 const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/EVcharger";
-
-await mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log("MongoDB connection error:", err));
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.log("MongoDB connection error:", err);
+  }
+}
+startServer();
 
 // Load User Model
 const Register = require("./models/register");
