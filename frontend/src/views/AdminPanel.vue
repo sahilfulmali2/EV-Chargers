@@ -41,7 +41,7 @@ export default {
   methods: {
     async fetchChargingStations() {
       try {
-        const response = await axios.get('http://localhost:5000/api/chargers');
+        const response = await axios.get('https://ev-chargers-befi.onrender.com/api/chargers');
         this.chargingStations = response.data;
       } catch (err) {
         console.error("Error fetching stations:", err);
@@ -49,7 +49,7 @@ export default {
     },
     async deleteChargingStation(id) {
       try {
-        await axios.delete(`http://localhost:5000/api/chargers/${id}`);
+        await axios.delete(`https://ev-chargers-befi.onrender.com/api/chargers/${id}`);
         this.chargingStations = this.chargingStations.filter(c => c._id !== id);
         alert('Charging station deleted successfully!');
       } catch (err) {

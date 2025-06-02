@@ -25,7 +25,7 @@ const router = useRouter()
 
 const register = async () => {
   try {
-    await axios.post('http://localhost:5000/api/register', {
+    await axios.post('https://ev-chargers-befi.onrender.com/api/register', {
       name: name.value,
       email: email.value,
       password: password.value

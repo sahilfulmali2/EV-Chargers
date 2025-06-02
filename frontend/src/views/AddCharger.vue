@@ -66,7 +66,7 @@ export default {
       try {
         console.log("Sending charger data:", this.charger);
 
-        await axios.post("http://localhost:5000/api/chargers", this.charger);
+        await axios.post("https://ev-chargers-befi.onrender.com/api/chargers", this.charger);
         this.$router.push("/adminpanel");
       } catch (err) {
         console.error("Error adding station:", err);

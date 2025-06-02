@@ -32,7 +32,7 @@ const login = async () => {
     
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
     
-    const res = await axios.post(`${baseUrl}/api/login`, {
+    const res = await axios.post("https://ev-chargers-befi.onrender.com/api/login", {
       email: email.value,
       password: password.value,
     });

@@ -18,7 +18,7 @@ const chargers = ref([])
 
 onMounted(async () => {
   const token = localStorage.getItem("token")
-  const response = await axios.get("http://localhost:5000/api/chargers", {
+  const response = await axios.get("https://ev-chargers-befi.onrender.com", {
     headers: {
       Authorization: `Bearer ${token}`
     }
