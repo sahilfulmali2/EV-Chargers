@@ -69,9 +69,13 @@ cd backend
 npm install
 
 Create a .env file inside the backend folder and add:
+
 MONGO_URI=your_mongodb_atlas_connection_string
+
 JWT_SECRET=a_super_secret_key_for_jwt
+
 ADMIN_EMAIL=admin@example.com
+
 PORT=5000
 
 Start the backend server:
