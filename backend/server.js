@@ -7,31 +7,26 @@ const serverless = require("serverless-http");
 
 const app = express();
 
-// Load environment variables. For Vercel, these are injected automatically.
-// This line is primarily for local development.
 require("dotenv").config();
 
-// Get MongoDB URI from environment variables.
-// It's crucial that MONGO_URI is correctly set in Vercel's project settings.
 const MONGO_URI = process.env.MONGO_URI;
 
-// Log an error if MONGO_URI is not found. This will appear in Vercel logs.
 if (!MONGO_URI) {
   console.error("ERROR: MONGO_URI environment variable is not defined!");
-  // In a production scenario, you might want to exit the process or provide a fallback.
-  // For Vercel, this will simply be logged, and the connection attempt will likely fail.
 }
 
-// Connect to MongoDB.
-// This connection attempt will happen once per serverless function cold start.
-// Mongoose handles connection pooling and reuse for subsequent requests.
-mongoose.connect(MONGO_URI)
-  .then(() => console.log("MongoDB Connected Successfully!"))
-  .catch(err => {
+// Define an async function to connect to MongoDB
+async function connectDB() {
+  try {
+    await mongoose.connect(MONGO_URI);
+    console.log("MongoDB Connected Successfully!");
+  } catch (err) {
     console.error("MongoDB connection error:", err);
-    // Log the full error for debugging in Vercel's logs.
     console.error("Ensure your MONGO_URI is correct and IP access is whitelisted in MongoDB Atlas.");
-  });
+    // Re-throw the error to ensure the cold start fails if connection fails
+    throw err;
+  }
+}
 
 // Middleware
 app.use(cors({
@@ -58,6 +53,10 @@ app.post("/api/register", async (req, res) => {
   }
 
   try {
+    // Ensure DB is connected before proceeding
+    if (mongoose.connection.readyState !== 1) {
+      await connectDB(); // Attempt to reconnect if not connected
+    }
     const existing = await Register.findOne({ email });
     if (existing) {
       return res.status(400).json({ message: "Email already taken" });
@@ -85,6 +84,10 @@ app.post("/api/login", async (req, res) => {
   console.log("Received login request with:", email, password);
 
   try {
+    // Ensure DB is connected before proceeding
+    if (mongoose.connection.readyState !== 1) {
+      await connectDB(); // Attempt to reconnect if not connected
+    }
     const user = await Register.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User does not exist" });
@@ -114,9 +117,9 @@ app.post("/api/login", async (req, res) => {
 // Fetching Chargers
 app.get("/api/chargers", async (req, res) => {
   try {
-    // Check if MongoDB is connected before querying
+    // Ensure DB is connected before proceeding
     if (mongoose.connection.readyState !== 1) { // 1 means connected
-      return res.status(503).json({ error: "Database not connected. Please try again." });
+      await connectDB(); // Attempt to reconnect if not connected
     }
     const chargers = await ChargingStation.find();
     res.json(chargers);
@@ -129,7 +132,10 @@ app.get("/api/chargers", async (req, res) => {
 // Root endpoint for health check
 app.get("/", async (req, res) => {
   try {
-    // Check MongoDB connection status before responding
+    // Ensure DB is connected before responding
+    if (mongoose.connection.readyState !== 1) {
+      await connectDB(); // Attempt to reconnect if not connected
+    }
     if (mongoose.connection.readyState === 1) { // 1 means connected
       res.json({ message: "Backend working fine on Vercel and connected to MongoDB!" });
     } else {
@@ -152,8 +158,9 @@ app.post("/api/chargers", async (req, res) => {
   }
 
   try {
+    // Ensure DB is connected before proceeding
     if (mongoose.connection.readyState !== 1) {
-      return res.status(503).json({ error: "Database not connected. Cannot add charger." });
+      await connectDB(); // Attempt to reconnect if not connected
     }
     const newCharger = new ChargingStation({
       name,
@@ -175,8 +182,9 @@ app.post("/api/chargers", async (req, res) => {
 // Delete Charger Route
 app.delete("/api/chargers/:id", async (req, res) => {
   try {
+    // Ensure DB is connected before proceeding
     if (mongoose.connection.readyState !== 1) {
-      return res.status(503).json({ error: "Database not connected. Cannot delete charger." });
+      await connectDB(); // Attempt to reconnect if not connected
     }
     const result = await ChargingStation.findByIdAndDelete(req.params.id);
     if (!result) {
@@ -189,10 +197,14 @@ app.delete("/api/chargers/:id", async (req, res) => {
   }
 });
 
-// Export handler for Vercel serverless functions
-// The `handler` is created after the mongoose.connect call is initiated.
-// Mongoose's promise-based connect will handle the asynchronous nature.
-module.exports = {
-  app, // Export app for potential local use or other modules
-  handler: serverless(app), // This is the main export for Vercel
+module.exports = async (req, res) => {
+  if (mongoose.connection.readyState !== 1) {
+    try {
+      await connectDB();
+    } catch (error) {
+      console.error("Failed to connect to MongoDB during function invocation:", error);
+      return res.status(500).json({ error: "Server initialization failed: Could not connect to database." });
+    }
+  }
+  return serverless(app)(req, res);
 };
