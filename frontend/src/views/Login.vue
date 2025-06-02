@@ -29,9 +29,10 @@ const router = useRouter();
 const login = async () => {
   try {
     console.log("Sending login:", email.value, password.value);
-
-
-    const res = await axios.post("http://localhost:5000/api/login", {
+    
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    
+    const res = await axios.post(`${baseUrl}/api/login`, {
       email: email.value,
       password: password.value,
     });
